@@ -56,7 +56,7 @@ namespace ReservationSystem.Controllers
         }
         // GET: api/Reservation/user/username
         [HttpGet("user/{username}")]
-        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(String username)
+        public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservations(String username)
         {
             return Ok(await _service.GetAllReservationsForUser(username));
 

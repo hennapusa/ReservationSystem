@@ -34,6 +34,15 @@ namespace ReservationSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options => {
+
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+        
             services.AddControllers();
             services.AddDbContext<ReservationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ReservationDB")));
             services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
@@ -71,9 +80,12 @@ namespace ReservationSystem
             db.Database.EnsureCreated();
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<ApiKeyMiddleware>();
+          
 
             app.UseRouting();
+            app.UseCors();
+
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();

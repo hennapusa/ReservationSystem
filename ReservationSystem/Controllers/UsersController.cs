@@ -32,7 +32,7 @@ namespace ReservationSystem.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -72,7 +72,7 @@ namespace ReservationSystem.Controllers
         /// <param name="user">User´s new information</param>
         /// <returns></returns>
         [HttpPut("{username}")]
-        [Authorize(Roles ="Admin")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PutUser(string username, UserDTO user)
         {
