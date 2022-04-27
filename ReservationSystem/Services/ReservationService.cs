@@ -60,7 +60,7 @@ namespace ReservationSystem.Services
             }
             return reservationDTOs;
         }
-
+// lisää, jos muistat! GetReservationForItem(long id)
         public async Task<ReservationDTO> GetReservation(long id)
         {
             return ReservationToDTO(await _repository.GetReservationAsync(id));
@@ -112,7 +112,8 @@ namespace ReservationSystem.Services
                 return null;
             }
 
-            Item target = await _itemRepository.GetItemAsync(dto.Id);
+            Item target = await _itemRepository.GetItemAsync(dto.Target);
+            reservation.Target = target;
             reservation.Id = dto.Id;
             reservation.Start = dto.Start;
             reservation.End = dto.End;
@@ -121,9 +122,20 @@ namespace ReservationSystem.Services
             return reservation;
         }
 
-        public Task<IEnumerable<ReservationDTO>> GetAllReservationsForUser(string Username)
+        public async Task<IEnumerable<ReservationDTO>> GetAllReservationsForUser(string username)
         {
-            throw new NotImplementedException();
+            User owner = await _userRepository.GetUserAsync(username);
+            if (owner == null)
+            {
+                return null;
+            }
+            IEnumerable<Reservation> reservations = await _repository.GetReservationsAsync(owner);
+            List<ReservationDTO> dtos = new List<ReservationDTO>();
+            foreach(Reservation r in reservations)
+            {
+                dtos.Add(ReservationToDTO(r));
+            }
+            return dtos;
         }
     }
 

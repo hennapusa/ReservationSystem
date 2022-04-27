@@ -37,12 +37,12 @@ namespace ReservationSystem.Repositories
 
         public async Task<IEnumerable<Reservation>> GetReservationAsync()
         {
-            return await _context.Reservations.ToListAsync();
+            return await _context.Reservations.Include(i => i.Owner).Include(i => i.Target).ToListAsync();
         }
 
         public async Task<IEnumerable<Reservation>> GetReservationAsync(Item target, DateTime start, DateTime end)
         {
-            return await _context.Reservations.Where(x => x.Target == target && ((x.Start >= start && x.Start < end) || (x.End > start && x.End < end) || (x.Start <= start && x.End > end))).ToListAsync(); //tästä puuttuu kellon aika rajaukset
+            return await _context.Reservations.Include(i => i.Owner).Include(i => i.Target).Where(x => x.Target == target && ((x.Start >= start && x.Start < end) || (x.End > start && x.End < end) || (x.Start <= start && x.End > end))).ToListAsync(); //tästä puuttuu kellon aika rajaukset
         }
 
         public async Task<IEnumerable<Reservation>> GetReservationsAsync(User user)
