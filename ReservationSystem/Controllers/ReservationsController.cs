@@ -26,6 +26,7 @@ namespace ReservationSystem.Controllers
         {
             _service = service;
             _authenticationService = authenticationService;
+            
         }
 
         // GET: api/Reservations
@@ -66,7 +67,7 @@ namespace ReservationSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReservation(long id, Reservation reservation)
+        public async Task<IActionResult> PutReservation(long id, ReservationDTO reservation)
         {
             //if (id != reservation.Id)
             //{

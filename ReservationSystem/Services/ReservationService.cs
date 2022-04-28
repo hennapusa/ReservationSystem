@@ -82,7 +82,7 @@ namespace ReservationSystem.Services
             return dTOs;
         }
 
-        //turha? vai mikä lie koodin murunen jäänyt ;D
+        //turha? 
         /*
         User owner = await _userRepository.GetUserAsync(dto.Owner);
             if(owner == null)
@@ -120,6 +120,22 @@ namespace ReservationSystem.Services
             reservation.Owner = owner;
 
             return reservation;
+        }
+        public async Task<IEnumerable<ReservationDTO>> GetAllReservationForItem(long id)
+        {
+            Item target = await _itemRepository.GetItemAsync(id);
+
+            if (target == null)
+            {
+                return null;
+            }
+            IEnumerable<Reservation> reservations = await _repository.GetReservationsAsync(target);
+            List<ReservationDTO> dTOs = new List<ReservationDTO>();
+            foreach(Reservation r in reservations)
+            {
+                dTOs.Add(ReservationToDTO(r));
+            }
+            return dTOs;
         }
 
         public async Task<IEnumerable<ReservationDTO>> GetAllReservationsForUser(string username)

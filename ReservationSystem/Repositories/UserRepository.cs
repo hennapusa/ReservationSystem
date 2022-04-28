@@ -60,9 +60,19 @@ namespace ReservationSystem.Repositories
             return user;
         }
 
-        public Task<User> UptadeUserAsync(User user)
+        public async Task<User> UptadeUserAsync(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Update(user);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return user;
         }
 
 
@@ -79,11 +89,20 @@ namespace ReservationSystem.Repositories
             return null;
         }
 
-        
 
-        Task<bool> IUserRepository.DeleteUserAsync(User user)
-        {
-            throw new NotImplementedException();
-        }
+
+        /* Task<bool> IUserRepository.DeleteUserAsync(User user)
+         {
+             _context.Users.Delete(user);
+             try
+             {
+                 await _context.SaveChangesAsync();
+             }
+             catch (Exception)
+             {
+                 return null;
+             }
+             return user;
+         }*/
     }
 }

@@ -50,5 +50,9 @@ namespace ReservationSystem.Repositories
             return await _context.Reservations.Include(i => i.Owner).Include(i => i.Target).Where(x => x.Owner == user).ToListAsync();
         }
 
+        public async Task<IEnumerable<Reservation>> GetReservationsAsync(Item item)
+       {
+            return await _context.Reservations.Include(i => i.Owner).Include(i => i.Target).Where(x => x.Target == item).ToListAsync();
+        }
     }
 }
