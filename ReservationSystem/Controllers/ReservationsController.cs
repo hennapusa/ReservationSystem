@@ -28,7 +28,11 @@ namespace ReservationSystem.Controllers
             _authenticationService = authenticationService;
             
         }
-
+        /// <summary>
+        /// Get reservations
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Reservations
         [HttpGet]
         public async Task<ActionResult<ReservationDTO>> GetReservations(long id)
@@ -42,7 +46,11 @@ namespace ReservationSystem.Controllers
             return Ok(await _service.GetReservation(id));
         }
 
-        
+        /// <summary>
+        /// Get reservations via id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Reservations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservation(long id)
@@ -55,6 +63,11 @@ namespace ReservationSystem.Controllers
          return reservation;*/
             return Ok(await _service.GetAllReservations());
         }
+        /// <summary>
+        /// Get reservations via username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         // GET: api/Reservation/user/username
         [HttpGet("user/{username}")]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservations(String username)
@@ -62,7 +75,12 @@ namespace ReservationSystem.Controllers
             return Ok(await _service.GetAllReservationsForUser(username));
 
         }
-
+        /// <summary>
+        /// Edit reservation
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="reservation"></param>
+        /// <returns></returns>
         // PUT: api/Reservations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -94,7 +112,11 @@ namespace ReservationSystem.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Make reservation
+        /// </summary>
+        /// <param name="reservation"></param>
+        /// <returns></returns>
         // POST: api/Reservations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -115,7 +137,11 @@ namespace ReservationSystem.Controllers
             return CreatedAtAction("GetReservation", new { id = reservation.Id }, reservation);
             
         }
-
+        /// <summary>
+        /// Delete reservation
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/Reservations/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Reservation>> DeleteReservation(long id)
