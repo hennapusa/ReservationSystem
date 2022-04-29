@@ -44,10 +44,9 @@ namespace ReservationSystem.Services
             return ReservationToDTO(newReservation);
 
         }
-
-        public Task<ReservationDTO> CreateReservationAsync(long id)
+        public async Task<ReservationDTO> CreateReservationAsync(long id)
         {
-            throw new NotImplementedException();
+            return ReservationToDTO(await _repository.GetReservationAsync(id));
         }
 
         public async Task<IEnumerable<ReservationDTO>> GetAllReservations()
@@ -60,7 +59,7 @@ namespace ReservationSystem.Services
             }
             return reservationDTOs;
         }
-// lisää, jos muistat! GetReservationForItem(long id)
+
         public async Task<ReservationDTO> GetReservation(long id)
         {
             return ReservationToDTO(await _repository.GetReservationAsync(id));
