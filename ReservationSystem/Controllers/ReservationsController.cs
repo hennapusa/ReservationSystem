@@ -17,7 +17,7 @@ namespace ReservationSystem.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
-        //private readonly ReservationContext _context;
+        private readonly ReservationContext _context;
         private readonly IReservationService _service;
         private readonly IUserAuthenticationService _authenticationService;
 
@@ -27,6 +27,11 @@ namespace ReservationSystem.Controllers
             _service = service;
             _authenticationService = authenticationService;
             
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservations()
+        {
+            return Ok(await _service.GetAllReservations());
         }
         /// <summary>
         /// Get reservations
@@ -55,13 +60,15 @@ namespace ReservationSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservation(long id)
         {
-            /*var reservation = await _context.Reservations.FindAsync(id);
-         if (reservation == null)
+            //var reservation = await _context.Reservations.FindAsync(id);
+
+            var reservation = await _service.GetReservation(id);
+            if (reservation == null)
          {
              return NotFound();
          }
-         return reservation;*/
-            return Ok(await _service.GetAllReservations());
+         return Ok(reservation);
+            //return Ok(await _service.GetAllReservations());
         }
         /// <summary>
         /// Get reservations via username
@@ -87,28 +94,29 @@ namespace ReservationSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReservation(long id, ReservationDTO reservation)
         {
-            //if (id != reservation.Id)
-            //{
-             //   return BadRequest();
-            //}
+            if (id != reservation.Id)
+            {
+               return BadRequest();
+            }
 
-           // _context.Entry(reservation).State = EntityState.Modified;
+             _context.Entry(reservation).State = EntityState.Modified;
 
-            //try
-           // {
-            //    await _context.SaveChangesAsync();
-           // }
-           // catch (DbUpdateConcurrencyException)
-           // {
-            //    if (!ReservationExists(id))
+            try
+             {
+                await _context.SaveChangesAsync();
+             }
+            catch (DbUpdateConcurrencyException)
+            {
+                return null;
+            /*    if (!ReservationExists(id))
             //    {
-                 //   return NotFound();
-               // }
-               // else
-              //  {
-              //      throw;
-             //   }
-            //}
+                    return NotFound();
+               }
+                else
+               {
+                  throw;
+               }*/
+            }
 
             return NoContent();
         }
@@ -146,17 +154,17 @@ namespace ReservationSystem.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Reservation>> DeleteReservation(long id)
         {
-            // var reservation = await _context.Reservations.FindAsync(id);
-            // if (reservation == null)
-            // {
-            //     return NotFound();
-            // }
+             var reservation = await _context.Reservations.FindAsync(id);
+             if (reservation == null)
+             {
+                 return NotFound();
+             }
 
-            //  _context.Reservations.Remove(reservation);
-            // await _context.SaveChangesAsync();
+              _context.Reservations.Remove(reservation);
+             await _context.SaveChangesAsync();
 
-            // return reservation;
-            return null;
+            return reservation;
+            //return null;
         }
     }
 }

@@ -28,9 +28,9 @@ namespace ReservationSystem.Repositories
             return item;
         }
 
-        public async Task<Item> GetItemAsync(long id)//long id
+        public async Task<Item> GetItemAsync(long id)
         {
-            //return await _context.Items.FindAsync(newItem);//id
+            //return await _context.Items.FindAsync(newItem);
             return await _context.Items.FindAsync(id);
         }
 

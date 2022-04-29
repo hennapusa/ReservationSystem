@@ -17,7 +17,7 @@ namespace ReservationSystem.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        //private readonly ReservationContext _context;
+        private readonly ReservationContext _context;
         private readonly IItemService _service;
         private readonly IUserAuthenticationService _authenticationService;
 
@@ -26,10 +26,7 @@ namespace ReservationSystem.Controllers
             _service = service;
             _authenticationService = authenticationService;
         }
-        /// <summary>
-        /// Gets all Items
-        /// </summary>
-        /// <returns></returns>
+        
         /* // GET: api/Items
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Item>>> GetItems()
@@ -57,7 +54,7 @@ namespace ReservationSystem.Controllers
         }
 
         /// <summary>
-        /// Get via item id
+        /// Get items via item id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -65,15 +62,15 @@ namespace ReservationSystem.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<IEnumerable<Item>>> GetItems(long id)
         {
-            /*
+            
             var item = await _context.Items.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
             
-            return item;
-            */
+            //return item;
+            
             return Ok(await _service.GetAllItems());
         }
         /// <summary>
@@ -114,7 +111,7 @@ namespace ReservationSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(long id, ItemDTO item)//Item
+        public async Task<IActionResult> PutItem(long id, ItemDTO item)
         {
             // if (id != item.Id)
             // {
@@ -151,7 +148,7 @@ namespace ReservationSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(ItemDTO item)
+        public async Task<ActionResult<ItemDTO>> PostItem(ItemDTO item)
         {
             //Tarkista onko oikeus muokata?
             bool isAllowed = await _authenticationService.IsAllowed(this.User.FindFirst(ClaimTypes.Name).Value, item);
@@ -175,19 +172,19 @@ namespace ReservationSystem.Controllers
         /// <returns></returns>
         // DELETE: api/Items/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ItemDTO>> DeleteItem(long id)
+        public async Task<ActionResult<Item>> DeleteItem(long id)
         {
-            //var item = await _context.Items.FindAsync(id);
-            //if (item == null)
-            // {
-            //    return NotFound();
-            //}
+            var item = await _context.Items.FindAsync(id);
+            if (item == null)
+             {
+                return NotFound();
+            }
 
-            // _context.Items.Remove(item);
-            // await _context.SaveChangesAsync();
+             _context.Items.Remove(item);
+             await _context.SaveChangesAsync();
 
-            // return item;
-            return null;
+            return item;
+            //return null;
         }
     }
 }

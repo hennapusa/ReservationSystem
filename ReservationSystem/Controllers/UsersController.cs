@@ -32,7 +32,6 @@ namespace ReservationSystem.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -52,14 +51,14 @@ namespace ReservationSystem.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json")]
-        public async Task<ActionResult<UserDTO>> GetUser(long id)
+        public async Task<ActionResult<UserDTO>> GetUser(string username)//long id
         {
-            UserDTO user = await _service.GetUserAsync(id);
+            UserDTO user = await _service.GetUserAsync(username);
             if (user == null)
             {
                 return NotFound();
             }
-            return null;
+            return user;
         }
 
         // PUT: api/Users/5
