@@ -54,5 +54,18 @@ namespace ReservationSystem.Repositories
        {
             return await _context.Reservations.Include(i => i.Owner).Include(i => i.Target).Where(x => x.Target == item).ToListAsync();
         }
+
+        public async Task<Reservation> UpdateReservation(Reservation reservation)
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
+        }
     }
 }

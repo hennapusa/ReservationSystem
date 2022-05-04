@@ -39,7 +39,7 @@ namespace ReservationSystem.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Reservations
-        [HttpGet]
+      /*  [HttpGet]
         public async Task<ActionResult<ReservationDTO>> GetReservations(long id)
         {
             // return await _context.Reservations.ToListAsync();
@@ -49,7 +49,7 @@ namespace ReservationSystem.Controllers
                 return NotFound();
             }
             return Ok(await _service.GetReservation(id));
-        }
+        }*/
 
         /// <summary>
         /// Get reservations via id

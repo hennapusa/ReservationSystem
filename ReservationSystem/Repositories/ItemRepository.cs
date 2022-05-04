@@ -67,5 +67,23 @@ namespace ReservationSystem.Repositories
         {
             return await _context.Items.Include(i => i.Owner).Where(x => x.Name.Contains(query)).ToListAsync();
         }
+
+        public Task<bool> DeleteItemAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Item> UpdateItem(Item item)
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
+        }
     }
 }

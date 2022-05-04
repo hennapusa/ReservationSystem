@@ -20,10 +20,10 @@ namespace ReservationSystem.Controllers
         //private readonly ReservationContext _context;
         private readonly IUserService _service;
         private readonly IUserAuthenticationService _authenticationService;
-        public UsersController(IUserService service, IUserAuthenticationService authenticationService)
+        public UsersController(IUserService service, IUserAuthenticationService usersAuthenticationService)
         {
             _service = service;
-            _authenticationService = authenticationService;
+            _authenticationService = usersAuthenticationService;
         }
 
         // GET: api/Users
@@ -71,7 +71,6 @@ namespace ReservationSystem.Controllers
         /// <param name="user">User´s new information</param>
         /// <returns></returns>
         [HttpPut("{username}")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PutUser(string username, UserDTO user)
         {

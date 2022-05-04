@@ -108,6 +108,22 @@ namespace ReservationSystem.Services
             }
             return itemDTOs;
         }
+
+        public async Task<ItemDTO> UpdateItem(ItemDTO item)
+        {
+            Item dbItem = await _repository.GetItemAsync(item.Id);
+            dbItem.Name = item.Name;
+            dbItem.Description = item.Description;
+
+            Item updateItem = await _repository.UpdateItem(dbItem);
+            if (updateItem == null)
+            {
+                return null;
+            }
+
+
+            return ItemToDTO(updateItem);
+        }
     }
 }
    

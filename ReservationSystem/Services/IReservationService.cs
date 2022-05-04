@@ -10,11 +10,14 @@ namespace ReservationSystem.Services
     {
         public Task <ReservationDTO>CreateReservationAsync(ReservationDTO res);
         public Task <ReservationDTO>CreateReservationAsync(long id);
-        public Task<ReservationDTO> GetReservation(long id);
+        //public Task<ReservationDTO> GetReservation(long id);
         public Task<IEnumerable<ReservationDTO>> GetAllReservations();
         public Task<IEnumerable<ReservationDTO>> GetAllReservationsForUser(String Username);
+        public Task<ReservationDTO> UpdateReservation(ReservationDTO reservation);
 
-        
+        public Task<IEnumerable<ReservationDTO>> GetReservation(long id);
+
+
 
 
     }

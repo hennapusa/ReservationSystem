@@ -89,20 +89,34 @@ namespace ReservationSystem.Repositories
             return null;
         }
 
+        public async Task<User> UpdateUserAsync(User user)
+        {
+            _context.Users.Update(user);
 
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return user;
+        }
 
-        /* Task<bool> IUserRepository.DeleteUserAsync(User user)
-         {
-             _context.Users.Delete(user);
-             try
+            /* Task<bool> IUserRepository.DeleteUserAsync(User user)
              {
-                 await _context.SaveChangesAsync();
-             }
-             catch (Exception)
-             {
-                 return null;
-             }
-             return user;
-         }*/
-    }
+                 _context.Users.Delete(user);
+                 try
+                 {
+                     await _context.SaveChangesAsync();
+                 }
+                 catch (Exception)
+                 {
+                     return null;
+                 }
+                 return user;
+             }*/
+        
+        }
 }

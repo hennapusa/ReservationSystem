@@ -13,5 +13,9 @@ namespace ReservationSystem.Repositories
         public Task<IEnumerable<Item>> GetAllItems();
         public Task<IEnumerable<Item>> GetItemsOfUser(User user);
         public Task<IEnumerable<Item>> QueryItems(String query);
+        public Task<User> GetUserAsync(long id);
+        public Task<Boolean> DeleteItemAsync(long id);
+
+        public Task<Item> UpdateItem(Item item);
     }
 }

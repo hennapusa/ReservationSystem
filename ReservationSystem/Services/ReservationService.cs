@@ -152,6 +152,38 @@ namespace ReservationSystem.Services
             }
             return dtos;
         }
+
+        public async Task<ReservationDTO> UpdateReservation(ReservationDTO reservation)
+        {
+            Reservation dbReservation = await _repository.GetReservationAsync(reservation.Id);
+            dbReservation.Start = reservation.Start;
+            dbReservation.End = reservation.End;
+
+            Reservation updateReservation = await _repository.UpdateReservation(dbReservation);
+            if (updateReservation == null)
+            {
+                return null;
+            }
+            return ReservationToDTO(updateReservation);
+        }
+
+        
+
+        async Task<IEnumerable<ReservationDTO>> IReservationService.GetReservation(long id)
+        {
+            Item item = await _itemRepository.GetItemAsync(id);
+            if (item == null)
+            {
+                return null;
+            }
+            IEnumerable<Reservation> reservations = await _repository.GetReservationsAsync(item);
+            List<ReservationDTO> reservationsOfItem = new List<ReservationDTO>();
+            foreach (Reservation r in reservations)
+            {
+                reservationsOfItem.Add(ReservationToDTO(r));
+            }
+            return reservationsOfItem;
+        }
     }
 
 }

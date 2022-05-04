@@ -12,5 +12,6 @@ namespace ReservationSystem.Services
         public Task<IEnumerable<ItemDTO>> GetAllItems();
         public Task<IEnumerable<ItemDTO>> GetItems(String username);
         public Task<IEnumerable<ItemDTO>> QueryItems(String query);
+        public Task<ItemDTO> UpdateItem(ItemDTO item);
     }
 }

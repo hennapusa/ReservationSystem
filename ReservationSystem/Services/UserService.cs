@@ -113,5 +113,10 @@ namespace ReservationSystem.Services
             }
             return UserToDTO(user);
         }
+
+        public Task<UserDTO> UpdateUserAsync(string username)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace ReservationSystem.Repositories
         Task<IEnumerable<Reservation>> GetReservationAsync(Item target, DateTime start, DateTime end);
         Task<IEnumerable<Reservation>> GetReservationsAsync(User user);
         Task<IEnumerable<Reservation>> GetReservationsAsync(Item item);
+        public Task<Reservation> UpdateReservation(Reservation reservation);
     }
 }
