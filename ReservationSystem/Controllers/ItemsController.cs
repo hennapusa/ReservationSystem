@@ -113,28 +113,25 @@ namespace ReservationSystem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItem(long id, ItemDTO item)
         {
-            // if (id != item.Id)
-            // {
-            //     return BadRequest();
-            //  }
+            if (id != item.Id)
+            {
+                 return BadRequest();
+              }
 
-            //  _context.Entry(item).State = EntityState.Modified;
+            ItemDTO updateItem = await _service.UpdateItem(item);
 
-            // try
-            //{
-            //     await _context.SaveChangesAsync();
-            //}
-            // catch (DbUpdateConcurrencyException)
-            // {
-            //    if (!ItemExists(id))
-            //    {
-            //    return NotFound();
-            // }
-            //  else
-            //  {
-            //      throw;
-            //  }
-            // }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+             catch (DbUpdateConcurrencyException)
+             {
+                
+                {
+                    return NotFound();
+                }
+              
+            }
 
             // return NoContent();
             return null;
