@@ -65,7 +65,7 @@ namespace ReservationSystem.Services
             return ReservationToDTO(await _repository.GetReservationAsync(id));
         }
 
-        /*public async Task<IEnumerable<ReservationDTO>> GetReservationForUser(string username)
+        public async Task<IEnumerable<ReservationDTO>> GetReservationForUser(string username)
         {
             User owner = await _userRepository.GetUserAsync(username);
             if (owner == null)
@@ -79,7 +79,7 @@ namespace ReservationSystem.Services
                 dTOs.Add(ReservationToDTO(r));
             }
             return dTOs;
-        }*/
+        }
 
         //turha? 
         /*
@@ -120,7 +120,7 @@ namespace ReservationSystem.Services
 
             return reservation;
         }
-        /*public async Task<IEnumerable<ReservationDTO>> GetAllReservationForItem(long id)
+        public async Task<IEnumerable<ReservationDTO>> GetAllReservationForItem(long id)
         {
             Item target = await _itemRepository.GetItemAsync(id);
 
@@ -135,7 +135,7 @@ namespace ReservationSystem.Services
                 dTOs.Add(ReservationToDTO(r));
             }
             return dTOs;
-        }*/
+        }
 
         public async Task<IEnumerable<ReservationDTO>> GetAllReservationsForUser(string username)
         {
